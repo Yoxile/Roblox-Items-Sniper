@@ -12,6 +12,9 @@ Buys any item you want at any price automatically (don't work on limited).
 ### Step 1: Download Python
 You can download Python from www.python.org/downloads/release/python-3115/. If you're on Windows, I recommend downloading the x64 version. Make sure to check the box at the bottom that will say "Add Python to PATH."
 
+![image](https://github.com/Yoxile/Roblox-Items-Sniper/assets/147896038/b00a6753-f695-483d-bc62-5f631d9e0352)
+
+
 ### Step 2: Download the sniper
 (You're already here.) Download the main.py and settings.json files.
 
