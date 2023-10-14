@@ -32,7 +32,7 @@ This is easy. Get your .ROBLOSECURITY cookie (look up a tutorial for that if you
 ```
 
 ### Step 4: Download the dependencies
-Open a command prompt file and type python ```-m pip install requests```.
+Open a command prompt file and type python ```python -m pip install requests```.
 
 After the request has been installed also in the cmd run ```pip install colorama```.
 
