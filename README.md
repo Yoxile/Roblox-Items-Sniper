@@ -19,11 +19,9 @@ This is easy. Get your .ROBLOSECURITY cookie (look up a tutorial for that if you
     "cookie": "_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_....",
     "items": {
         
-        //"id": price,
-        "15056545609": 80,
-        "15035204715": 250,
-        "15056767344": 120,
-        "15056630331": 30
+        "id": price,
+        "id": price,
+        "id": price
 
     },
     "watch_speed": 1
