@@ -22,9 +22,9 @@ This is easy. Get your .ROBLOSECURITY cookie (look up a tutorial for that if you
     "cookie": "_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_....",
     "items": {
         
-        "id": price,
-        "id": price,
-        "id": price
+        "id": max_price,
+        "id": max_price,
+        "id": max_price
 
     },
     "watch_speed": 1
