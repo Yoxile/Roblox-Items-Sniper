@@ -1,7 +1,8 @@
 # Roblox-Items-Sniper
 Buys any item you want at any price automatically (don't work on limited).
 
-![image](https://github.com/Yoxile/Roblox-Items-Sniper/assets/147896038/b7893c72-4dc6-4307-ae95-ae5b47847fe0)
+![image](https://github.com/Yoxile/Roblox-Items-Sniper/assets/147896038/59d12efa-a231-46ff-8b6d-4e45ab5aee90)
+
 
 
 ## Instructions
