@@ -4,7 +4,9 @@ from colorama import Fore, Back, Style, init
 
 init()
 
+# Load configuration settings from settings.json
 settings = json.load(open("settings.json", "r"))
+item_ids = settings["items"]  # Extract item IDs and prices
 
 requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 
@@ -12,7 +14,7 @@ session = requests.session()
 session.cookies['.ROBLOSECURITY'] = settings["cookie"]
 
 token = None
-payload = [{ "itemType": "Asset", "id": id } for id in settings["items"]]
+payload = [{ "itemType": "Asset", "id": id } for id in item_ids]
 cache = []
 
 logs = []
@@ -83,7 +85,7 @@ def buy_item(product_id, seller_id, price):
         return buy_item(product_id, seller_id, price)
 
 def status_update():
-    global checks, logs
+    global checks, logs, item_ids
 
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
@@ -91,10 +93,18 @@ def status_update():
         elapsed_time = time.time() - start_time
         elapsed_time_str = time.strftime("%H:%M:%S", time.gmtime(elapsed_time))
 
-        print(Fore.MAGENTA + "😁 Auto Buyer by Yoxilex 🙏" + Style.RESET_ALL)
-        print(Fore.CYAN + f"Checks: {checks}" + Style.RESET_ALL)
-        print(Fore.MAGENTA + f"Elapsed Time: {elapsed_time_str}" + Style.RESET_ALL)
-        print(Fore.GREEN + "Logs:")
+        print(Fore.YELLOW + Style.BRIGHT + "😁 Auto Buyer by Yoxilex 🙏" + Style.RESET_ALL)
+        print(Fore.WHITE + Style.DIM + "Dm yoxile on Discord if u have any questions" + Style.RESET_ALL)
+        print(Fore.CYAN + f"☑️ Checks: {checks}" + Style.RESET_ALL)
+        print(Fore.LIGHTCYAN_EX + f"🕒 Elapsed Time: {elapsed_time_str}" + Style.RESET_ALL)
+
+        # Print item IDs and prices
+        print(Fore.LIGHTGREEN_EX + Style.BRIGHT + "🛒 Item IDs and 💲Prices:")
+        for item_id, price in item_ids.items():
+            print(Fore.LIGHTGREEN_EX + f"🆔 Item ID: [{item_id}] 💸Price: {price} Robux")
+        print(Style.RESET_ALL)
+
+        print(Fore.GREEN + Style.BRIGHT + "🪵 Logs:")
         for log in logs[-10:]:
             print(log)
         print(Style.RESET_ALL)
@@ -121,17 +131,17 @@ def watcher():
                         item_name = item['name']
 
                         if "price" in item and not item_id in cache:
-                            purchase_price = settings["items"].get(str(item_id))
+                            purchase_price = item_ids.get(str(item_id))
                             if purchase_price is not None:
                                 if item["price"] > purchase_price:
                                     # Check if the item has already been warned
                                     if item_id not in item_warnings:
                                         item_warnings[item_id] = False
-                                        logs.append(f"❌ [{item_id}] {item_name} : The price {item['price']} is higher than the one set {purchase_price}")
+                                        logs.append(Fore.RED + Style.BRIGHT + f"❌ [{item_id}] {item_name} : The price {item['price']} is higher than the one set {purchase_price}" + Style.RESET_ALL)
                                 else:
                                     cache.append(item_id)
                                     r_data = get_product_id(item_id)
-                                    logs.append(f"❌ [{item_id}] {item_name}")
+                                    logs.append(Fore.RED + Style.BRIGHT + f"❌ [{item_id}] {item_name}" + Style.RESET_ALL)
 
                                     price = item["price"]
                                     purchase_time = None
@@ -142,11 +152,11 @@ def watcher():
                                     except Exception as error:
                                         purchase_time = "Failed to buy"
 
-                                    logs[-1] = f"✅ Bought:[{item_id}] {item_name} : [💸{price} Robux] at {purchase_time}"
+                                    logs[-1] = Fore.GREEN + Style.BRIGHT + f"✅ Bought:[{item_id}] {item_name} : [💸{price} Robux] at {purchase_time}" + Style.RESET_ALL
                             else:
-                                logs.append(f"❌ [{item_id}] {item_name} : Purchase price not set in settings.json")
+                                logs.append(Fore.RED + Style.BRIGHT + f"❌ [{item_id}] {item_name} : Purchase price not set in settings.json" + Style.RESET_ALL)
             elif conn.status_code == 403:
-                logs.append('🔄 Force refreshing auth token')
+                logs.append(Fore.BLUE + Style.BRIGHT + "🔄 Force refreshing auth token" + Style.RESET_ALL)
                 _set_auth()
         except Exception as error:
             pass
@@ -154,9 +164,9 @@ def watcher():
 
 if __name__ == '__main__':
     threading.Thread(target=refresh_tokens).start()
-    print(Fore.YELLOW + "🛈 Waiting to fetch token, restart if it takes too long" + Style.RESET_ALL)
+    print(Fore.YELLOW + Style.BRIGHT + "🛈 Waiting to fetch token, update cookies and restart if it takes too long" + Style.RESET_ALL)
     while token == None:
         time.sleep(1)
-    print(Fore.YELLOW + "🎉 Fetched token" + Style.RESET_ALL)
+    print(Fore.YELLOW + Style.BRIGHT + "🎉 Fetched token" + Style.RESET_ALL)
     threading.Thread(target=status_update).start()
     threading.Thread(target=watcher).start()
